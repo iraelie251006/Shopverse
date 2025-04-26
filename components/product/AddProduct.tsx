@@ -51,17 +51,17 @@ export default function AddProduct({
     e.preventDefault();
     try {
       if (edit && product) {
-        await updateProduct(product.id, {
+        const updatedProduct = await updateProduct(product.id, {
           name,
           description,
           price,
           category,
           images,
         });
-          router.push(`/product/view/${product.id}`);
+          router.push(`/product/view/${updatedProduct?.id}`);
       } else {
-        await createProduct({name, description, price, category, images})
-        router.push(`/product/view/${product?.id}`);
+        const newProduct = await createProduct({name, description, price, category, images})
+        router.push(`/product/view/${newProduct?.id}`);
       }
       
     } catch (error) {

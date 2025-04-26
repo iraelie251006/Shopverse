@@ -12,6 +12,11 @@ export default async function Page({ params }: { params: { path: string[] } }) {
   const id = params.path[1];
 
   const product = await getProductById(parseInt(id));
+
+  if (!product) {
+      return <div className="h-screen flex justify-center items-center text-3xl">No Product found 😔</div>
+    }
+
   if (method === "new") {
     return <AddProduct />;
   }
@@ -22,9 +27,6 @@ export default async function Page({ params }: { params: { path: string[] } }) {
     return <DeleteProduct id={id} />;
   }
   
-  if (!product) {
-    return <div className="h-screen flex justify-center items-center text-3xl">No Product found 😔</div>
-  }
 
   return (
     <div className="pt-20 grid md:grid-cols-2 gap-8 max-w-6xl mx-auto py-12 px-4">
