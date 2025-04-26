@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { createProduct } from "@/lib/actions/products";
 
 export const revalidate = 1;
 
@@ -37,9 +38,13 @@ export default function AddProduct({
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("electronics");
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async(e: any) => {
     e.preventDefault();
-    console.log({ name, category, images, description, price });
+    try {
+      await createProduct({name, description, price, category})
+    } catch (error) {
+      console.error("Error creating product:", error);
+    } 
   };
 
   return (
@@ -47,7 +52,7 @@ export default function AddProduct({
       <form onSubmit={handleSubmit}>
         <div className="grid gap-4">
           <h1 className="text-3xl font-bold">{title}</h1>
-          <p className="text-gray-500 dark:text-gray-400">{subText}</p>
+          <p className="text-gray-500 dark:text-gray-400 mb-5">{subText}</p>
         </div>
         <div className="grid gap-6">
           <div className="grid md:grid-cols-2 gap-6">
