@@ -71,3 +71,15 @@ export const updateProduct = async (id: number, data: Partial<Product> & { image
         return null;
     }
 }
+
+export const deleteProduct = async (id: number) => {
+    try {
+        const deletedProduct = await prisma.product.delete({
+            where: { id },
+        });
+        return true;
+    } catch (error) {
+        console.error("Error deleting product:", error);
+        return false;
+    }
+}
