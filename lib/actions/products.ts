@@ -1,5 +1,7 @@
 "use server"
 
+import { Product } from "@prisma/client";
+
 import { prisma } from "@/lib/prisma";
 
 interface createProductProps {
@@ -40,6 +42,32 @@ export const getProductById = async (id: number) => {
         return product;
     } catch (error) {
         console.error("Error fetching product:", error);
+        return null;
+    }
+}
+
+export const updateProduct = async (id: number, data: Partial<Product> & { images: string[]}) => {
+    try {
+        const updateData: any = {
+            name: data.name,
+            description: data.description,
+            price: data.price,
+            category: data.category,
+        };
+
+        if (data.images) {
+            updateData.images = {
+                deleteMany: {},
+                create: data.images?.map((url) => ({ url })),
+            };
+        }
+        const updatedProduct = await prisma.product.update({
+            where: { id },
+            data: updateData,
+        });
+        return updatedProduct;
+    } catch (error) {
+        console.error("Error updating product:", error);
         return null;
     }
 }

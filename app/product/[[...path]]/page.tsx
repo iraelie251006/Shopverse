@@ -11,16 +11,17 @@ export default async function Page({ params }: { params: { path: string[] } }) {
   const method = params.path[0];
   const id = params.path[1];
 
+  const product = await getProductById(parseInt(id));
   if (method === "new") {
     return <AddProduct />;
   }
   if (method === "edit") {
-    return <AddProduct edit id={id} />;
+    return <AddProduct edit id={id} product={product}/>;
   }
   if (method === "delete") {
     return <DeleteProduct id={id} />;
   }
-  const product = await getProductById(parseInt(id)); 
+  
   if (!product) {
     return <div className="h-screen flex justify-center items-center text-3xl">No Product found 😔</div>
   }
