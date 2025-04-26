@@ -1,9 +1,12 @@
+"use client"; 
+
 import { TrashIcon } from "lucide-react";
-import router from "next/router";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { deleteProduct } from "@/lib/actions/products";
 export default function DeleteProduct({ id }: { id: string }) {
+  const router = useRouter();
   const handleDelete = async () => {
     const didDelete = await deleteProduct(parseInt(id));
     if (didDelete) router.push("/search");

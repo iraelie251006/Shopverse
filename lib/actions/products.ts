@@ -1,6 +1,7 @@
 "use server"
 
 import { Product } from "@prisma/client";
+import { unstable_cache as cache, revalidateTag } from "next/cache";
 
 import { prisma } from "@/lib/prisma";
 
@@ -33,7 +34,7 @@ export const createProduct = async (input: createProductProps) => {
     }
 }
 
-export const getProductById = async (id: number) => {
+const _getProductById = async (id: number) => {
     try {
         const product = await prisma.product.findUnique({
             where: { id },
@@ -41,10 +42,11 @@ export const getProductById = async (id: number) => {
         });
         return product;
     } catch (error) {
-        console.error("Error fetching product:", error);
         return null;
     }
 }
+
+export const getProductById = cache(_getProductById, ['getProductById'], {tags: ['Product'], revalidate: 60});
 
 export const updateProduct = async (id: number, data: Partial<Product> & { images: string[]}) => {
     try {
@@ -65,6 +67,7 @@ export const updateProduct = async (id: number, data: Partial<Product> & { image
             where: { id },
             data: updateData,
         });
+        revalidateTag("Product");
         return updatedProduct;
     } catch (error) {
         console.error("Error updating product:", error);
@@ -77,6 +80,7 @@ export const deleteProduct = async (id: number) => {
         const deletedProduct = await prisma.product.delete({
             where: { id },
         });
+        revalidateTag("Product");
         return true;
     } catch (error) {
         console.error("Error deleting product:", error);

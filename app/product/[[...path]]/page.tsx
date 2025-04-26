@@ -13,13 +13,16 @@ export default async function Page({ params }: { params: { path: string[] } }) {
 
   const product = await getProductById(parseInt(id));
 
-  if (!product) {
-      return <div className="h-screen flex justify-center items-center text-3xl">No Product found 😔</div>
-    }
+  
 
   if (method === "new") {
     return <AddProduct />;
   }
+  
+  if (!product) {
+      return <div className="h-screen flex justify-center items-center text-3xl">No Product found 😔</div>
+    }
+
   if (method === "edit") {
     return <AddProduct edit id={id} product={product}/>;
   }
