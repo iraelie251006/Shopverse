@@ -2,16 +2,18 @@
 
 import RatingSelect from "./Review/RatingSelect";
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
-export default function Component() {
+import { createReview } from "@/lib/actions/reviews";
+
+export default function Component({id}: {id: string}) {
   const [rating, setRating] = useState(0);
   const [name, setName] = useState("");
   const [review, setReview] = useState("");
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async(event: FormEvent) => {
     event.preventDefault();
-
+    await createReview({name, rating, content: review, productId: parseInt(id)});
     console.log({ name, rating, review });
   };
   return (
