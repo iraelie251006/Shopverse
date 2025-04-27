@@ -88,15 +88,36 @@ export const deleteProduct = async (id: number) => {
     }
 }
 
-export const getProducts = async ({page = 1}: {page?: number}) => {
-    const resultsPerPage = 10;
+export const getProducts = async ({page = 1, name, minPrice, category}: {page?: number, name?:string, minPrice?: string, category?: string}) => {
+    const resultsPerPage = 6;
     const skip = (resultsPerPage * (page - 1)) || 0;
+    const where: any = {};
+
+    if (name) {
+        where.name = {
+            contains: name,
+            mode: "insensitive",
+        }
+    };
+
+    if (minPrice) {
+        where.price = {
+            gte: parseInt(minPrice),
+        }
+    };
+    if (category && category !== "all") {
+        where.category = {
+            equals: category,
+        };
+    }
+
   try {
     const allProducts = await prisma.product.findMany({
       include: {
         images: true,
         reviews: true,
       },
+      where,
       skip,
       take: resultsPerPage,
     });
