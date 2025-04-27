@@ -1,3 +1,10 @@
+![Next.js](https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-3982CE?logo=prisma&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?logo=typescript&logoColor=white)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Vercel](https://img.shields.io/badge/Vercel-Deployed-success)](https://your-vercel-app-link.vercel.app)
+
 # E-Commerce Platform
 
 This repository contains the code for an **E-Commerce platform** built using **Next.js**, **TypeScript**, and **Prisma ORM**. The application is designed to provide a modern and scalable solution for online stores, offering features such as product browsing, shopping cart management, and secure authentication.
