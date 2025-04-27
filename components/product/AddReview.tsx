@@ -14,7 +14,9 @@ export default function Component({id}: {id: string}) {
   const handleSubmit = async(event: FormEvent) => {
     event.preventDefault();
     await createReview({name, rating, content: review, productId: parseInt(id)});
-    console.log({ name, rating, review });
+    setName("");
+    setReview("");
+    setRating(0);
   };
   return (
     <section className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-md">

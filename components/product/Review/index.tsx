@@ -25,6 +25,15 @@ export default function ReviewView({review}: {review: Review}) {
         <p>
           {review.content}
         </p>
+        <p>
+          <span className="font-semibold">Posted on:</span> {new Date(review.createdAt).toLocaleDateString(undefined, {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+          })}
+        </p>
       </CardContent>
     </Card>
   );

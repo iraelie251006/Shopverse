@@ -129,7 +129,7 @@ export default function AddProduct({
         </div>
         <div className="flex justify-end gap-2">
           <Button variant="outline">Cancel</Button>
-          <Button>Save Changes</Button>
+          <Button type="submit">Save Changes</Button>
         </div>
       </form>
     </div>

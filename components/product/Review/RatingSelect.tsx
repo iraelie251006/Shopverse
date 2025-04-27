@@ -25,9 +25,9 @@ export default function RatingSelect({
   };
 
   const renderStars = Array.from({ length: 5 }, (_, index) => {
-    const fill = index < hoverRating ? "fill-primary" : "fill-muted";
+    const fill = index < hoverRating ? "fill-yellow-400" : "fill-muted";
     const stroke =
-      index < rating ? "stroke-primary" : "stroke-muted-foreground";
+      index < rating ? "stroke-yellow-400" : "stroke-muted-foreground";
 
     return (
       <span
